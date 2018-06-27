@@ -95,9 +95,10 @@ static int Vibrate(lua_State* L)
         int i;
         for (i = 0; i < size; i++ )
         {
-            lua_rawgeti(L, 1, 1);
-            lua_pop(L, 1);
-            temp_pattern[i] = (long)lua_tointeger(L, 1);
+            lua_rawgeti(L, 1, i);
+            int rtn = lua_tointeger(L,-1);
+            lua_pop(L,1);
+            temp_pattern[i] = (long)rtn;
         }
         env->SetLongArrayRegion(pattern,0,size,temp_pattern);
         

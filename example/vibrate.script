@@ -4,7 +4,7 @@ function init(self)
 	math.random();math.random();math.random();math.random();math.random();
 	self.flag = 0
 	if vibrate then
-		vibrate.vibrate({0, 100, 200, 100, 500, 1000})
+		vibrate.vibrate({400, 100, 200, 100, 500, 1000})
 	end
 end
 
@@ -27,7 +27,7 @@ function on_input(self, action_id, action)
 	if action.released and vibrate then
 		if self.flag == 0 then
 			--vibrate.vibrate(math.random(1000))
-			vibrate.vibrate({0, 100, 200, 100, 500, 1000})
+			vibrate.vibrate({1000, 100, 200, 100, 500, 1000, 100, 250, 1000, 100})
 			self.flag = 1
 		else
 			vibrate.cancel()

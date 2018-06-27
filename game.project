@@ -1,0 +1,15 @@
+[bootstrap]
+main_collection = /example/main.collectionc
+
+[script]
+shared_state = 1
+
+[project]
+title = Vibrate
+
+[android]
+package = com.defold.vibrate
+
+[library]
+include_dirs = vibrate
+

@@ -16,6 +16,12 @@ class Vibrate {
 		}
     }
 
+    public static final void vibratePhonePattern(Context context, long[] pattern) {
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		if (vibrator.hasVibrator()) {
+			vibrator.vibrate(pattern, -1);
+		}
+    }
 
     public static final void cancelVibratePhone(Context context) {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);

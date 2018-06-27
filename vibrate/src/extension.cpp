@@ -58,14 +58,60 @@ static int Vibrate(lua_State* L)
 {
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
+
+    if (lua_isnil(L, 1))
+    {
+        int duration = 100;
+
+        jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
+
+        jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhone", "(Landroid/content/Context;I)V");
+        env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
+        return 0;        
+    }
+
+    if (lua_isnumber(L, 1))
+    {
+        int duration = luaL_checkint(L, 1);
+
+        jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
+
+        jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhone", "(Landroid/content/Context;I)V");
+        env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
+        return 0;
+    }
+
+    if (lua_istable(L, 1)) 
+    {
     
-    int duration = luaL_checkint(L, 1);
+        luaL_checktype(L, 1, LUA_TTABLE);
+        
+        int size;
+        size = lua_objlen(L, 1);
+        
+        jlongArray pattern = env->NewLongArray(size);
 
-    jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
+        jlong temp_pattern[size];
+        int i;
+        for (i = 0; i < size; i++ )
+        {
+            lua_rawgeti(L, 1, 1);
+            lua_pop(L, 1);
+            temp_pattern[i] = (long)lua_tointeger(L, 1);
+        }
+        env->SetLongArrayRegion(pattern,0,size,temp_pattern);
+        
+        jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
 
-    jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhone", "(Landroid/content/Context;I)V");
-    env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
-    return 0;
+        jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhonePattern", "(Landroid/content/Context;[J)V");
+
+        
+        env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), pattern);
+        
+        return 0;
+    }
+    
+    
 }
 
 static int Cancel(lua_State* L)

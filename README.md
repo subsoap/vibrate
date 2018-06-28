@@ -10,6 +10,6 @@ If duration is not set it will default to 100.
 
 ```vibrate.cancel()```
 
-Todo:
+```vibrate.vibrate({pattern})```
 
-```vibrate.vibrate({pattern}, loop)```
+For example, ```vibrate.vibrate({0, 100, 200, 100, 500, 1000, 100, 250, 1000, 100})```

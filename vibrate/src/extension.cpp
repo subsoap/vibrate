@@ -92,14 +92,16 @@ static int Vibrate(lua_State* L)
         jlongArray pattern = env->NewLongArray(size);
 
         jlong temp_pattern[size];
+
         int i;
-        for (i = 0; i < size; i++ )
+        for (i = 0; i <= size ; i++ )
         {
-            lua_rawgeti(L, 1, i);
+            lua_rawgeti(L, 1, i + 1);
             int rtn = lua_tointeger(L,-1);
             lua_pop(L,1);
             temp_pattern[i] = (long)rtn;
         }
+        
         env->SetLongArrayRegion(pattern,0,size,temp_pattern);
         
         jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");

@@ -13,3 +13,7 @@ package = com.defold.vibrate
 [library]
 include_dirs = vibrate
 
+[display]
+width = 640
+height = 960
+

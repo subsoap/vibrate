@@ -66,7 +66,7 @@ static int Vibrate(lua_State* L)
         jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
 
         jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhone", "(Landroid/content/Context;I)V");
-        env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
+        env->CallStaticVoidMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
         return 0;        
     }
 
@@ -77,7 +77,7 @@ static int Vibrate(lua_State* L)
         jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
 
         jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhone", "(Landroid/content/Context;I)V");
-        env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
+        env->CallStaticVoidMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), duration);
         return 0;
     }
 
@@ -109,7 +109,7 @@ static int Vibrate(lua_State* L)
         jmethodID vibrate_method = env->GetStaticMethodID(cls, "vibratePhonePattern", "(Landroid/content/Context;[J)V");
 
         
-        env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), pattern);
+        env->CallStaticVoidMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity(), pattern);
         
         return 0;
     }
@@ -125,7 +125,7 @@ static int Cancel(lua_State* L)
     jclass cls = GetClass(env, "com.defold.android.vibrate.Vibrate");
 
     jmethodID vibrate_method = env->GetStaticMethodID(cls, "cancelVibratePhone", "(Landroid/content/Context;)V");
-    env->CallStaticObjectMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity());
+    env->CallStaticVoidMethod(cls, vibrate_method, dmGraphics::GetNativeAndroidActivity());
     return 0;
 }
 
